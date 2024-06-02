@@ -1,0 +1,47 @@
+<nav>
+  <div class="hamburger-container">
+    <img src="../../assets/Vector.svg" alt="" />
+  </div>
+
+  <a href=""><img src="../../assets/gmail.svg" alt="image" /> Gmail</a>
+
+  <input type="text" placeholder="Search mail" aria-label="search" />
+</nav>
+
+<div class="content">
+  <aside class="sidebar">
+    <a class="compose-container">
+      <img src="../../assets/New.svg" alt="" /><span>Compose</span>
+    </a>
+
+    <ul class="categories">
+      <li class="category">
+        <a routerLink="/inbox" routerLinkActive="active">
+          <img src="../../assets/inbox.svg" alt="" /><span>Inbox</span>
+        </a>
+      </li>
+      <li class="category">
+        <a routerLink="/starred" routerLinkActive="active">
+          <img src="../../assets/star.svg" alt="" /><span>Starred</span>
+        </a>
+      </li>
+      <li class="category">
+        <a
+          routerLink="/sent"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+        >
+          <img src="../../assets/sent.svg" alt="" /><span>Sent</span>
+        </a>
+      </li>
+      <li class="category">
+        <a routerLink="spam" routerLinkActive="active"
+          ><img src="../../assets/spam.svg" alt="" /><span>Spam</span></a
+        >
+      </li>
+    </ul>
+  </aside>
+
+  <!-- <app-email-view></app-email-view> -->
+  <app-email-list></app-email-list>
+</div>
