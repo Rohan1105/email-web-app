@@ -1,56 +1,77 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr';
-import express from 'express';
-import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
-import bootstrap from './src/main.server';
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const app = express();
+const port = 3000;
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
-  const server = express();
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
-  const indexHtml = join(serverDistFolder, 'index.server.html');
+app.use(cors());
+app.use(express.json());
 
-  const commonEngine = new CommonEngine();
-
-  server.set('view engine', 'html');
-  server.set('views', browserDistFolder);
-
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
-
-  // All regular routes use the Angular engine
-  server.get('*', (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
-
-    commonEngine
-      .render({
-        bootstrap,
-        documentFilePath: indexHtml,
-        url: `${protocol}://${headers.host}${originalUrl}`,
-        publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
-      })
-      .then((html) => res.send(html))
-      .catch((err) => next(err));
+mongoose.connect('mongodb+srv://rohanpalkgp:KYZi9sb2Imq0rHVz@cluster5.olwvhwi.mongodb.net/userInfo')
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err: { message: any; }) => {
+    console.error('Error connecting to MongoDB:', err.message);
   });
 
-  return server;
-}
+const userSchema = new mongoose.Schema({
+  userId: String,
+  userName: String,
+  password: String,
+});
 
-function run(): void {
-  const port = process.env['PORT'] || 4000;
+const emailSchema = new mongoose.Schema({
+  emailId: String,
+  emailTitle: String,
+  emailBody: String,
+  to: String,
+  sendDate: Date,
+}); // Specify the collection name for emailSchema
 
-  // Start up the Node server
-  const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
+const User = mongoose.model('User', userSchema, 'userTable');
+const Email = mongoose.model('Email', emailSchema, 'emailTable'); // Use 'emailTable' collection for emails
 
-run();
+app.get('/emails', async (req: any, res: { json: (arg0: any) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }) => {
+  try {
+    const emailData = await Email.find({});
+    res.json(emailData);
+  } catch (err) {
+    res.status(500).send('Error fetching email data');
+  }
+});
+
+app.post('/emails', async (req: { body: { emailId: any; emailTitle: any; emailBody: any; to: any; sendDate: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message?: string; error?: string; }): void; new(): any; }; }; }) => {
+  try {
+    const { emailId, emailTitle, emailBody, to, sendDate } = req.body;
+    const newEmail = new Email({ emailId, emailTitle, emailBody, to, sendDate });
+    await newEmail.save();
+    res.status(201).json({ message: 'Email created successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error creating email' });
+  }
+});
+
+app.get('/users', async (req: any, res: { json: (arg0: any) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }) => {
+  try {
+    const userData = await User.find({});
+    res.json(userData);
+  } catch (err) {
+    res.status(500).send('Error fetching user data');
+  }
+});
+
+app.post('/users', async (req: { body: { userId: any; userName: any; password: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message?: string; error?: string; }): void; new(): any; }; }; }) => {
+  try {
+    const { userId, userName, password } = req.body;
+    const newUser = new User({ userId, userName, password });
+    await newUser.save();
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error creating user' });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
