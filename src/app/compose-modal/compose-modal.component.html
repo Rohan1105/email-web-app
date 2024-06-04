@@ -1,23 +1,28 @@
 <div class="compose-container">
-  <form>
+  <form [formGroup]="emailForm" (submit)="handleMailSubmit()">
     <div>
       <label for="from">From: </label>
-      <input type="text" id="from" name="from" />
+      <input type="text" id="from" name="from" formControlName="emailId" />
     </div>
 
     <div>
       <label for="to">To: </label>
-      <input type="text" id="to" name="to" />
+      <input type="text" id="to" name="to" formControlName="to" />
     </div>
 
     <div>
       <label for="subject">Subject: </label>
-      <input type="text" id="subject" name="subject" />
+      <input
+        type="text"
+        id="subject"
+        name="subject"
+        formControlName="emailSubject"
+      />
     </div>
 
     <div>
       <label for="body">Body: </label>
-      <input type="text" id="body" name="body" />
+      <input type="text" id="body" name="body" formControlName="emailBody" />
     </div>
 
     <button type="submit">Send</button>

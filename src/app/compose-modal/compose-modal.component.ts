@@ -1,11 +1,11 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-compose-modal',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, ReactiveFormsModule],
   templateUrl: './compose-modal.component.html',
   styleUrl: './compose-modal.component.scss',
 })
@@ -15,6 +15,7 @@ export class ComposeModalComponent {
   emailForm = new FormGroup({
     emailId: new FormControl(''),
     emailSubject: new FormControl(''),
+    emailBody: new FormControl(''),
     to: new FormControl(''),
   });
 
@@ -23,7 +24,9 @@ export class ComposeModalComponent {
       .post<any>('emails', {
         emailId: this.emailForm.value.emailId,
         emailTitle: this.emailForm.value.emailSubject,
+        emailBody: this.emailForm.value.emailBody,
         to: this.emailForm.value.to,
+        sendData: new Date().getDate,
       })
       .subscribe({
         next: (data) => {
