@@ -49,6 +49,12 @@ input {
   border-radius: 25px;
   box-shadow: 0rem 1rem 1rem -1rem grey;
 
+  @media (hover) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   > div {
     width: 3rem;
     height: 1.6rem;

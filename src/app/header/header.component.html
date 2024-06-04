@@ -10,7 +10,7 @@
 
 <div class="content">
   <aside class="sidebar">
-    <a class="compose-container">
+    <a (click)="openModal()" class="compose-container">
       <img src="../../assets/New.svg" alt="" /><span>Compose</span>
     </a>
 
@@ -43,4 +43,5 @@
   </aside>
 
   <app-email-view></app-email-view>
+  <app-compose-modal *ngIf="isClicked"></app-compose-modal>
 </div>

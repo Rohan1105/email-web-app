@@ -10,7 +10,6 @@ export const routes: Routes = [
   { path: '', component: LoginComponent },
   {
     path: 'inbox',
-    // component: InboxComponent,
     component: HeaderComponent,
   },
   {

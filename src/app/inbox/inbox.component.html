@@ -10,9 +10,10 @@
 
 <div class="content">
   <aside class="sidebar">
-    <a class="compose-container">
+    <a href="#" (click)="openModal()" class="compose-container">
       <img src="../../assets/New.svg" alt="" /><span>Compose</span>
     </a>
+    <!-- <app-compose-modal *ngIf="active"></app-compose-modal> -->
 
     <ul class="categories">
       <li class="category">
@@ -42,6 +43,5 @@
     </ul>
   </aside>
 
-  <!-- <app-email-view></app-email-view> -->
-  <app-email-list></app-email-list>
+  <!-- <app-email-list></app-email-list> -->
 </div>
