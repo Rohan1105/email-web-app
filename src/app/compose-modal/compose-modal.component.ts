@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-compose-modal',
@@ -10,10 +11,13 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './compose-modal.component.html',
   styleUrl: './compose-modal.component.scss',
 })
-export class ComposeModalComponent {
-  @Input() isClicked!: boolean;
-
+export class ComposeModalComponent implements OnInit {
   constructor(private http: HttpClient) {}
+  ngOnInit(): void {
+    this.getEmail().subscribe((response) => {
+      console.log(response);
+    });
+  }
 
   emailForm = new FormGroup({
     emailId: new FormControl(''),
@@ -22,22 +26,30 @@ export class ComposeModalComponent {
     to: new FormControl(''),
   });
 
-  closeModal() {
-    this.isClicked = false;
-    console.log('close');
-  }
-
-  handleMailSubmit() {
+  async handleMailSubmit() {
+    // Call the spam detection API
+    var emailContent = this.emailForm.value.emailBody;
+    var type = '';
+    console.log(emailContent);
+    if (emailContent) {
+      var spamPrediction = await this.isSpamEmail(emailContent);
+      if (spamPrediction == 'spam') {
+        type = 'Spam';
+      } else {
+        type = 'Inbox';
+      }
+    }
     this.http
-      .post<any>('emails', {
+      .post<any>(`${'https://email-fdj2.onrender.com'}/emails`, {
         emailId: this.emailForm.value.emailId,
         emailTitle: this.emailForm.value.emailSubject,
         emailBody: this.emailForm.value.emailBody,
         to: this.emailForm.value.to,
-        sendData: new Date().toLocaleString(),
+        sendDate: new Date(),
+        type: type,
       })
       .subscribe({
-        next: (data) => {
+        next: async (data) => {
           console.log('Response:', data);
         },
         error: (error) => {
@@ -47,5 +59,18 @@ export class ComposeModalComponent {
           }
         },
       });
+  }
+
+  getEmail(): Observable<any> {
+    return this.http.get<any>(`${'https://email-fdj2.onrender.com'}/emails`);
+  }
+
+  private async isSpamEmail(emailBody: string): Promise<string> {
+    const response = await this.http
+      .post<any>('https://spam-email-detection-zncm.onrender.com/predict', {
+        email: emailBody,
+      })
+      .toPromise();
+    return response?.prediction || 'not classified';
   }
 }
