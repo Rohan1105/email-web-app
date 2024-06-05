@@ -1,2 +1,3 @@
-<p>email-list works!</p>
-<app-email-item></app-email-item>
+<div class="email-list-container">
+  <app-email-item *ngFor="let email of emails" [email]="email"></app-email-item>
+</div>

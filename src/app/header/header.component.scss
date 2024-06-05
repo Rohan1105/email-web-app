@@ -11,6 +11,7 @@ a {
   color: currentColor;
   display: flex;
   align-items: center;
+  gap: 0.5rem;
 }
 
 input {
@@ -40,14 +41,15 @@ input {
   width: 18ch;
   display: flex;
   align-items: center;
-  border: 1px solid #b3b3b3;
-  color: #3d4043;
+  color: rgb(91, 91, 91);
   font-weight: 500;
   padding-block: 0.5rem;
   padding-inline: 1rem;
   margin-inline: 1rem;
   border-radius: 25px;
-  box-shadow: 0rem 1rem 1rem -1rem grey;
+  box-shadow: 0rem 1rem 0.89rem -0.9rem rgb(214, 214, 214),
+    inset 1rem 1rem 1rem -1rem rgb(214, 214, 214),
+    inset -1rem 1rem 1rem -1rem rgb(214, 214, 214);
 
   @media (hover) {
     &:hover {
@@ -58,11 +60,6 @@ input {
   > div {
     width: 3rem;
     height: 1.6rem;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
   }
 }
 
@@ -79,10 +76,6 @@ input {
     padding-inline-start: 1rem;
     padding-block: 0.4rem;
     margin-block: 0.3rem;
-
-    a {
-      gap: 0.5rem;
-    }
 
     @media (hover: hover) {
       &:hover {

@@ -1,0 +1,21 @@
+.email-item-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  align-items: center;
+  border: 1px solid rgb(199, 199, 199);
+  padding-block: 0.45rem;
+  color: rgb(77, 77, 77);
+
+  .checkbox-container {
+    display: grid;
+    place-items: center center;
+  }
+
+  .sender-name {
+    font-weight: 700;
+  }
+
+  .date {
+    font-weight: 600;
+  }
+}

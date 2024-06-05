@@ -1,4 +1,6 @@
 <div class="compose-container">
+  <h5>New Message</h5>
+
   <form [formGroup]="emailForm" (submit)="handleMailSubmit()">
     <div>
       <label for="from">From: </label>
@@ -22,7 +24,7 @@
 
     <div>
       <label for="body">Body: </label>
-      <input type="text" id="body" name="body" formControlName="emailBody" />
+      <textarea id="body" name="body" formControlName="emailBody"></textarea>
     </div>
 
     <button type="submit">Send</button>

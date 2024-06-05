@@ -1,6 +1,6 @@
 <nav>
-  <div class="hamburger-container">
-    <img src="../../assets/Vector.svg" alt="" />
+  <div class="hamburger-container" (click)="handleHamburgerClick()">
+    <img src="../../assets/hamburger.svg" alt="" />
   </div>
 
   <a href=""><img src="../../assets/gmail.svg" alt="image" /> Gmail</a>
@@ -42,6 +42,10 @@
     </ul>
   </aside>
 
-  <app-email-view></app-email-view>
-  <app-compose-modal *ngIf="isClicked"></app-compose-modal>
+  <!-- <app-email-view></app-email-view> -->
+  <app-email-list></app-email-list>
+  <app-compose-modal
+    *ngIf="isClicked"
+    [isClicked]="isClicked"
+  ></app-compose-modal>
 </div>

@@ -1,15 +1,78 @@
 .compose-container {
   position: absolute;
   right: 2rem;
-  bottom: 5rem;
+  bottom: 0rem;
   background-color: white;
+  border-radius: 6px;
+  color: rbga(#000, 0.1);
+  overflow: hidden;
+  box-shadow: 1rem 1rem 1rem -1rem grey,
+    inset 1rem 1rem 1rem -1.4rem rgba(#000, 0.2);
 
-  padding-block: 2rem;
-  padding-inline: 2rem;
-  border-radius: 12px;
+  h5 {
+    background-color: #000;
+    color: rgb(239, 239, 239);
+    text-align: center;
+    padding-block: 0.8rem;
+    letter-spacing: 0.5px;
+  }
 
   form {
     display: grid;
     gap: 1rem;
+    padding-block: 2rem;
+    padding-inline: 1rem;
+
+    > div {
+      padding-block: 0.3rem;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: rgba(#000, 0.2);
+    }
+
+    textarea {
+      font-family: "Roboto", sans-serif;
+      display: block;
+      resize: none;
+      min-height: 10rem;
+      width: 30rem;
+      resize: none;
+      margin-block-start: 0.5rem;
+      border-color: rgba(#000, 0.6);
+      padding-inline: 0.2rem;
+      padding-block: 0.2rem;
+      border-radius: 4px;
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+    }
+
+    input[type="text"] {
+      font-size: 1.2rem;
+      border: none;
+      padding-inline-start: 0.5rem;
+      color: rgba(#000, 0.7);
+
+      &:focus-within {
+        outline: none;
+      }
+    }
+
+    button {
+      width: fit-content;
+      color: rgb(239, 239, 239);
+      background-color: #4f81e5;
+      border: none;
+      border-radius: 4px;
+      padding-block: 0.6rem;
+      padding-inline: 1rem;
+      font-weight: 600;
+    }
   }
 }

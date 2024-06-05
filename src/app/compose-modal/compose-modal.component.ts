@@ -1,15 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-compose-modal',
   standalone: true,
-  imports: [HttpClientModule, ReactiveFormsModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
   templateUrl: './compose-modal.component.html',
   styleUrl: './compose-modal.component.scss',
 })
 export class ComposeModalComponent {
+  @Input() isClicked!: boolean;
+
   constructor(private http: HttpClient) {}
 
   emailForm = new FormGroup({
@@ -19,6 +22,11 @@ export class ComposeModalComponent {
     to: new FormControl(''),
   });
 
+  closeModal() {
+    this.isClicked = false;
+    console.log('close');
+  }
+
   handleMailSubmit() {
     this.http
       .post<any>('emails', {
@@ -26,7 +34,7 @@ export class ComposeModalComponent {
         emailTitle: this.emailForm.value.emailSubject,
         emailBody: this.emailForm.value.emailBody,
         to: this.emailForm.value.to,
-        sendData: new Date().getDate,
+        sendData: new Date().toLocaleString(),
       })
       .subscribe({
         next: (data) => {
