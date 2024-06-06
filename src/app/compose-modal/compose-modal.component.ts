@@ -30,7 +30,6 @@ export class ComposeModalComponent implements OnInit {
     // Call the spam detection API
     var emailContent = this.emailForm.value.emailBody;
     var type = '';
-    console.log(emailContent);
     if (emailContent) {
       var spamPrediction = await this.isSpamEmail(emailContent);
       if (spamPrediction == 'spam') {
@@ -38,6 +37,7 @@ export class ComposeModalComponent implements OnInit {
       } else {
         type = 'Inbox';
       }
+      console.log(type);
     }
     this.http
       .post<any>(`${'https://email-fdj2.onrender.com'}/emails`, {
@@ -53,9 +53,9 @@ export class ComposeModalComponent implements OnInit {
           console.log('Response:', data);
         },
         error: (error) => {
-          console.error('Error:', error);
+          console.log('Error:', error);
           if (error.error && error.error.message) {
-            console.error('Error Message:', error.error.message);
+            console.log('Error Message:', error.error.message);
           }
         },
       });

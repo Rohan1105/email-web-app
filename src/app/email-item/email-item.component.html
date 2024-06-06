@@ -1,10 +1,8 @@
-<div class="email-item-container">
+<div class="email-item-container" *ngFor="let email of emailContent">
   <div class="checkbox-container">
     <img src="../../assets/checkbox.svg" alt="" />
   </div>
-  <p class="sender-name">Gmail</p>
-  <p class="email-body">Here's a new update to the gmail app.</p>
-  <p class="date">22:08</p>
-  <!-- <p>{{ email.emailBody }}</p> -->
-  <!-- <p>{{ email.sendDate }}</p> -->
+  <p class="sender-name">{{ email.emailId }}</p>
+  <p class="email-body">{{ email.emailBody }}</p>
+  <p class="date">{{ email.sendDate }}</p>
 </div>
