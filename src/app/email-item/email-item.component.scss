@@ -1,21 +1,35 @@
+:host {
+  border: 1px solid rgb(199, 199, 199);
+  border-bottom: 0;
+  color: rgb(77, 77, 77);
+}
+
 .email-item-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 1fr 3fr 8fr 2fr;
+  gap: 2rem;
   align-items: center;
-  border: 1px solid rgb(199, 199, 199);
-  padding-block: 0.45rem;
-  color: rgb(77, 77, 77);
+  padding-inline: 1.3rem;
+  padding-block: 0.4rem;
 
   .checkbox-container {
     display: grid;
-    place-items: center center;
+    align-items: center;
   }
 
   .sender-name {
-    font-weight: 700;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .email-body {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .date {
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 500;
   }
 }

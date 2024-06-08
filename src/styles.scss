@@ -8,6 +8,19 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Poppins", sans-serif;
   min-height: 100svh;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: min-content auto;
 }
