@@ -1,0 +1,25 @@
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-inline: 1rem;
+  padding-block: 1rem;
+}
+
+input {
+  width: 60ch;
+  background-color: #f1f3f4;
+  border: none;
+  border-radius: 8px;
+  padding-inline: 0.7rem;
+  padding-block: 0.7rem;
+  margin-inline-start: 1.4rem;
+
+  &::placeholder {
+    background-image: url("../../assets/search.svg"),
+      url("../../assets/down-arrow.svg");
+    background-repeat: no-repeat;
+    background-position: left center, right center;
+    padding-inline-start: 1.5rem;
+  }
+}

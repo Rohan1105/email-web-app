@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EmailItemComponent } from '../email-item/email-item.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Emails } from '../emails';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-email-list',
@@ -12,22 +13,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './email-list.component.scss',
 })
 export class EmailListComponent {
-  emails: Emails[] = [];
+  emailContent: Emails[] = [];
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.http.get<Emails>('https://email-fdj2.onrender.com/emails').subscribe({
-      next: (data) => {
-        this.emails = [...this.emails, data];
-        console.log('Response:', this.emails);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        if (error.error && error.error.message) {
-          console.error('Error Message:', error.error.message);
-        }
-      },
+  ngOnInit(): void {
+    this.fetchEmails().subscribe((res) => {
+      this.emailContent = res;
     });
+
+    this.emailContent.map((email) => {
+      const dateTime = new Date(email.sendDate);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString().slice(0, 5);
+
+      const dateDifference = new Date().getDay() - dateTime.getDay();
+
+      email.sendDate =
+        dateDifference === 1 ? `yesterday ${time}` : `${date} ${time}`;
+    });
+  }
+
+  fetchEmails(): Observable<any> {
+    return this.http.get<any>(`${'https://email-fdj2.onrender.com'}/emails`);
   }
 }
