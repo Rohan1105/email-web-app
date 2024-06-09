@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Emails } from '../emails';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,12 +8,10 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './email-item.component.html',
-  styleUrl: './email-item.component.scss',
+  styleUrls: ['./email-item.component.scss']
 })
-export class EmailItemComponent {
-  emailContent: any = {};
-
-  constructor(private http: HttpClient) {}
+export class EmailItemComponent{
+  constructor(private http: HttpClient) { }
 
   @Input() email!: Emails;
 }

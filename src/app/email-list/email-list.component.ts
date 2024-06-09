@@ -19,7 +19,11 @@ export class EmailListComponent {
 
   ngOnInit(): void {
     this.fetchEmails().subscribe((res) => {
-      this.emailContent = res;
+      for(var i=0;i<res.length;i++){
+        if(res[i]['type']=="Inbox"){
+          this.emailContent.push(res[i]);
+        }
+      }
     });
 
     this.emailContent.map((email) => {

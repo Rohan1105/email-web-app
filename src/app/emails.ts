@@ -6,4 +6,5 @@ export interface Emails {
   to: string;
   sendDate: string;
   __v?: number;
+  type:string;
 }
