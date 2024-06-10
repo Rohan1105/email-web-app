@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AuthService } from '../auth.service';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   allPassword: string = '';
   history: any = {};
   constructor(private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private auth : AuthService
   ) { }
 
   applyForm = new FormGroup({
@@ -63,6 +65,7 @@ export class LoginComponent implements OnInit {
 
   handleSignIn() {
     var flag = false;
+    this.auth.setLoginUserId(this.applyForm.value.email as string);
     console.log(this.applyForm.value?.email);
     console.log(this.applyForm.value?.password);
     console.log(this.history);
