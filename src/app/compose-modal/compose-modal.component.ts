@@ -41,7 +41,8 @@ export class ComposeModalComponent implements OnInit {
     }
     this.http
       .post<any>(`${'https://email-fdj2.onrender.com'}/emails`, {
-        emailId: this.emailForm.value.emailId,
+        emailId : "1",
+        userName: this.emailForm.value.emailId,
         emailTitle: this.emailForm.value.emailSubject,
         emailBody: this.emailForm.value.emailBody,
         to: this.emailForm.value.to,
