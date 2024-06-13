@@ -5,6 +5,7 @@ import { SentComponent } from './sent/sent.component';
 import { SpamComponent } from './spam/spam.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
+import { EmailViewComponent } from './email-view/email-view.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
     path: 'inbox',
     component: HeaderComponent,
   },
+  { path: 'inbox/email', component: EmailViewComponent },
   {
     path: 'starred',
     component: StarredComponent,

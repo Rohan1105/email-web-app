@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { EmailViewComponent } from '../email-view/email-view.component';
 import { ComposeModalComponent } from '../compose-modal/compose-modal.component';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { EmailListComponent } from '../email-list/email-list.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { EmailsService } from '../emails.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -21,12 +22,14 @@ import { EmailsService } from '../emails.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
-  isClicked: boolean = false;
+export class HeaderComponent implements OnInit {
+  isClicked$: Observable<boolean> | undefined;
 
   emailsService: EmailsService = inject(EmailsService);
 
-  ngOnChanges() {
-    this.isClicked = this.emailsService.isComposeBtnClicked;
+  constructor(private email: EmailsService) {}
+
+  ngOnInit() {
+    this.isClicked$ = this.email.isComposeBtnClicked$;
   }
 }
