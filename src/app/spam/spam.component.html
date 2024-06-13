@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
 <div class="content">
   <app-sidebar></app-sidebar>
-  <p>Here goes spam emails.</p>
+  <div class="email-list-container">
+    <app-email-item
+      *ngFor="let email of emailContent"
+      [email]="email"
+    ></app-email-item>
+  </div>
 </div>
