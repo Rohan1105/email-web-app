@@ -1,5 +1,6 @@
 export interface Emails {
   _id: string;
+  userName:string;
   emailId: string;
   emailTitle: string;
   emailBody: string;
