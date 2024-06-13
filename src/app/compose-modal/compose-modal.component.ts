@@ -68,7 +68,7 @@ export class ComposeModalComponent implements OnInit {
 
   private async isSpamEmail(emailBody: string): Promise<string> {
     const response = await this.http
-      .post<any>('https://spam-email-detection-zncm.onrender.com/predict', {
+      .post<any>('https://spam-email-detection-1.onrender.com/predict', {
         email: emailBody,
       })
       .toPromise();
