@@ -1,0 +1,32 @@
+<div class="login-container">
+  <div class="form-container">
+    <div class="logo-container">
+      <img src="../../assets/google.svg" alt="" />
+      <p><span>Sign up</span> to continue to Gmail</p>
+    </div>
+    <form [formGroup]="applyForm" (submit)="handleSignUp()">
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Name"
+        aria-label="name"
+      />
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        aria-label="email"
+      />
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        aria-label="password"
+      />
+      <div class="button-group">
+        <button type="submit">Sign In</button>
+        <button type="button" (click)="handleSignUp()">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>
