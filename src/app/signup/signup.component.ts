@@ -1,32 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service';
 import {
   HttpClientModule,
   HttpClient,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { AuthService } from '../auth.service';
-import Swal from 'sweetalert2';
 
-@Injectable({
-  providedIn: 'root',
-})
 @Component({
-  selector: 'app-login',
+  selector: 'app-signup',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent {
   id: string = '';
   allUserName: string = '';
   allPassword: string = '';
   history: any = {};
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -34,33 +31,21 @@ export class LoginComponent implements OnInit {
   ) {}
 
   applyForm = new FormGroup({
+    name: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
   });
 
-  ngOnInit(): void {
-    this.getUsers().subscribe((userData) => {
-      console.log(userData);
-      for (var i = 0; i < userData.length; i++) {
-        this.allUserName = userData[i]['userName'];
-        this.allPassword = userData[i]['password'];
-        this.history[this.allUserName] = this.allPassword;
-      }
-    });
-  }
-
-  getUsers(): Observable<any> {
-    return this.http.get<any>(`${'https://email-fdj2.onrender.com'}/users`);
-  }
-
   createUser(
     userId: string,
+    name: string | null | undefined,
     userName: string | null | undefined,
     password: string | null | undefined
   ): Observable<any> {
     return this.http
       .post<any>(`${'https://email-fdj2.onrender.com'}/users`, {
         userId,
+        name,
         userName,
         password,
       })
@@ -77,9 +62,8 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  handleSignIn() {
+  handleSignUp() {
     var flag = false;
-    this.auth.setLoginUserId(this.applyForm.value.email as string);
     console.log(this.applyForm.value?.email);
     console.log(this.applyForm.value?.password);
     console.log(this.history);
@@ -89,21 +73,33 @@ export class LoginComponent implements OnInit {
         this.applyForm.value?.password == this.history[key]
       ) {
         flag = true;
-        this.router.navigate(['inbox']);
+        Swal.fire({
+          icon: 'error',
+          title: 'User already exists',
+          text: 'Please enter a new Email Id and try again.',
+          confirmButtonText: 'OK',
+        });
         break;
       }
     }
     if (flag == false) {
-      Swal.fire({
-        icon: 'error',
-        title: 'User does not exist',
-        text: 'Please check your Email Id and password and try again.',
-        confirmButtonText: 'OK',
+      this.createUser(
+        this.id,
+        this.applyForm.value?.name,
+        this.applyForm.value?.email,
+        this.applyForm.value?.password
+      ).subscribe((response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Email Id created successfully!',
+          text: 'You can now sign in with your new account.',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          window.location.reload();
+        });
       });
     }
-  }
 
-  handleSignUp() {
-    this.router.navigate(['signup']);
+    this.router.navigate(['']);
   }
 }
