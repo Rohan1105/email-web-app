@@ -16,19 +16,16 @@ import { AuthService } from '../auth.service';
 export class EmailListComponent {
   emailContent: Emails[] = [];
 
-  constructor(private http: HttpClient,
-    private auth : AuthService
-  ) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   ngOnInit(): void {
-    var loginUser = this.auth.getLoginUserId();
-    console.log(loginUser);
+    let loginUser = this.auth.getLoginUserId();
+
     this.fetchEmails().subscribe((res) => {
-      for(var i=0;i<res.length;i++){
-        if(res[i]['type']=="Inbox" && res[i]['to']==loginUser){
-          this.emailContent.push(res[i]);
-        }
-      }
+      this.emailContent = res.filter(
+        (resItem: Emails): boolean =>
+          resItem.type === 'Inbox' && resItem.to === loginUser
+      );
     });
 
     this.emailContent.map((email) => {

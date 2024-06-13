@@ -2,7 +2,5 @@
 <div class="content">
   <app-sidebar></app-sidebar>
   <app-email-list></app-email-list>
-  <app-compose-modal
-    *ngIf="this.emailsService.isComposeBtnClicked"
-  ></app-compose-modal>
+  <app-compose-modal *ngIf="isClicked$ | async"></app-compose-modal>
 </div>

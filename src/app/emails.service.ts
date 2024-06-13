@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Emails } from './emails';
 
 @Injectable({
   providedIn: 'root',
@@ -6,18 +8,30 @@ import { Injectable } from '@angular/core';
 export class EmailsService {
   emailList: any = [];
   isComposeBtnClicked: boolean = false;
+  emailItem: Emails | null = null;
 
-  constructor() {}
+  private _isComposeBtnClicked: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  isComposeBtnClicked$: Observable<boolean> =
+    this._isComposeBtnClicked.asObservable();
 
-  openModal() {
-    this.isComposeBtnClicked = !this.isComposeBtnClicked;
+  toggleIsBtnClicked(): void {
+    this._isComposeBtnClicked.next(!this._isComposeBtnClicked.value);
   }
 
-  getAllEmails(): any {}
-
-  getSpamEmails(): any {}
+  isBtnClicked(): boolean {
+    return this._isComposeBtnClicked.value;
+  }
 
   saveEmails(emails: any) {
     localStorage.setItem('emails', JSON.stringify(emails));
+  }
+
+  setCurrentEmail(email: Emails): void {
+    this.emailItem = email;
+  }
+
+  getCurrentEmail(): Emails | null {
+    return this.emailItem;
   }
 }

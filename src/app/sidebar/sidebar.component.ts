@@ -12,7 +12,10 @@ import { EmailsService } from '../emails.service';
 export class SidebarComponent {
   emailsService: EmailsService = inject(EmailsService);
 
+  constructor(private email: EmailsService) {}
+
   openModal() {
-    this.emailsService.openModal();
+    this.email.toggleIsBtnClicked();
+    console.log(this.email.isBtnClicked());
   }
 }
