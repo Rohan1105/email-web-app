@@ -32,7 +32,7 @@ export class SpamComponent {
     this.fetchEmails().subscribe((res) => {
       this.emailContent = res.filter(
         (resItem: Emails): boolean =>
-          resItem.type === 'Inbox' && resItem.to === loginUser
+          resItem.type === 'Spam' && resItem.to === loginUser
       );
     });
 
