@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { EmailsService } from '../emails.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-compose-modal',
@@ -13,7 +14,11 @@ import { EmailsService } from '../emails.service';
   styleUrl: './compose-modal.component.scss',
 })
 export class ComposeModalComponent implements OnInit {
-  constructor(private http: HttpClient, private emailService: EmailsService) {}
+  constructor(
+    private http: HttpClient,
+    private emailService: EmailsService,
+    private auth: AuthService
+  ) {}
   ngOnInit(): void {
     this.getEmail().subscribe((response) => {
       console.log(response);
@@ -21,7 +26,7 @@ export class ComposeModalComponent implements OnInit {
   }
 
   emailForm = new FormGroup({
-    emailId: new FormControl(''),
+    emailId: new FormControl(this.auth.getLoginUserId()),
     emailSubject: new FormControl(''),
     emailBody: new FormControl(''),
     to: new FormControl(''),

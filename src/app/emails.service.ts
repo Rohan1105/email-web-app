@@ -32,10 +32,11 @@ export class EmailsService {
   }
 
   setCurrentEmail(email: Emails): void {
+    localStorage.setItem('email', JSON.stringify(email));
     this.emailItem = email;
   }
 
-  getCurrentEmail(): Emails | null {
-    return this.emailItem;
+  getCurrentEmail(): any {
+    return localStorage.getItem('email');
   }
 }
