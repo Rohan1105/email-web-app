@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   id: string = '';
   allUserName: string = '';
   allPassword: string = '';
@@ -35,6 +35,21 @@ export class SignupComponent {
     email: new FormControl(''),
     password: new FormControl(''),
   });
+
+  ngOnInit(): void {
+    this.getUsers().subscribe((userData) => {
+      console.log(userData);
+      for (var i = 0; i < userData.length; i++) {
+        this.allUserName = userData[i]['userName'];
+        this.allPassword = userData[i]['password'];
+        this.history[this.allUserName] = this.allPassword;
+      }
+    });
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${'https://email-fdj2.onrender.com'}/users`);
+  }
 
   createUser(
     userId: string,

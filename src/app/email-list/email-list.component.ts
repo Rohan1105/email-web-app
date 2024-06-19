@@ -31,8 +31,7 @@ export class EmailListComponent {
     this.emailContent.map((email) => {
       const dateTime = new Date(email.sendDate);
       const date = dateTime.toLocaleDateString();
-      const time = dateTime.toLocaleTimeString().slice(0, 5);
-
+      const time = dateTime.toLocaleTimeString().slice(0,4);
       const dateDifference = new Date().getDay() - dateTime.getDay();
 
       email.sendDate =
