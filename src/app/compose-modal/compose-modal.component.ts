@@ -81,7 +81,7 @@ export class ComposeModalComponent implements OnInit {
           email: emailBody,
         })
         .toPromise();
-  
+
       const prediction = response?.prediction || 'not classified';
       Swal.fire({
         icon: 'success',
@@ -89,7 +89,7 @@ export class ComposeModalComponent implements OnInit {
         text: 'Your email was sent and classified successfully.',
         confirmButtonText: 'OK',
       });
-  
+
       return prediction;
     } catch (error) {
       Swal.fire({
@@ -98,8 +98,8 @@ export class ComposeModalComponent implements OnInit {
         text: 'There was an error sending your email. Please try again.',
         confirmButtonText: 'OK',
       });
-  
+
       return 'not classified';
     }
-  }  
+  }
 }
