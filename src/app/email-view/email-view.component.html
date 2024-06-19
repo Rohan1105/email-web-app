@@ -11,14 +11,14 @@
         <img src="../../assets/trash.svg" alt="" />
         <img src="../../assets/label.svg" alt="" />
       </div>
-      <div class="pagination">
+      <!-- <div class="pagination">
         <p>1-50 of 200 &#8592; &#8594;</p>
-      </div>
+      </div> -->
     </div>
 
     <div class="email-view-content">
       <div class="email-subject">
-        <p>{{ emailItem?.emailTitle ?? "Email Subject" }}</p>
+        <p>{{ emailItem?.emailTitle }}</p>
       </div>
 
       <div class="email-recipient">
@@ -27,10 +27,7 @@
             <img src="../../assets/avatar.svg" alt="" />
           </div>
           <p>
-            <span class="recipient-name">Rohan</span>
-            <span class="recipient-mail">{{
-              emailItem?.userName ?? "xyz&#64;gmail.com"
-            }}</span>
+            <span class="recipient-mail">{{ emailItem?.userName }}</span>
           </p>
           <p class="receiver">to me</p>
         </div>
@@ -38,10 +35,7 @@
 
       <div class="email-body">
         <p>
-          {{
-            emailItem?.emailBody ??
-              "dolor sit amet, consectetur adipiscing elit. Donecsagittis mollis pellentesque. Sed hendrerit nunc non urna bibendum, atposuere justo mollis. Curabitur sodales urna et neque posuere, eget ultrices nisi pretium."
-          }}
+          {{ emailItem?.emailBody }}
         </p>
       </div>
 

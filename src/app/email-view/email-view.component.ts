@@ -12,11 +12,11 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './email-view.component.scss',
 })
 export class EmailViewComponent {
-  emailItem: Emails | null = null;
+  emailItem: any = null;
   constructor(private emailService: EmailsService) {}
 
   ngOnInit() {
-    this.emailItem = this.emailService.getCurrentEmail();
+    this.emailItem = JSON.parse(this.emailService.getCurrentEmail());
     console.log(this.emailItem);
   }
 }
