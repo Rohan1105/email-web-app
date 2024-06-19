@@ -4,6 +4,8 @@
   </button>
   <ul *ngIf="isClicked" class="dropdown">
     <li>Name</li>
-    <li>Logout</li>
+    <li>
+      <a (click)="handleLogout()"> Logout </a>
+    </li>
   </ul>
 </div>
