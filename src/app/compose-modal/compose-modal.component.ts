@@ -4,11 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { EmailsService } from '../emails.service';
-<<<<<<< HEAD
 import Swal from 'sweetalert2';
-=======
 import { AuthService } from '../auth.service';
->>>>>>> 98fc1ef13ffdcfd63ae82abaea9a6bd554bc3313
 
 @Component({
   selector: 'app-compose-modal',
@@ -84,7 +81,7 @@ export class ComposeModalComponent implements OnInit {
           email: emailBody,
         })
         .toPromise();
-  
+
       const prediction = response?.prediction || 'not classified';
       Swal.fire({
         icon: 'success',
@@ -92,7 +89,7 @@ export class ComposeModalComponent implements OnInit {
         text: 'Your email was sent and classified successfully.',
         confirmButtonText: 'OK',
       });
-  
+
       return prediction;
     } catch (error) {
       Swal.fire({
@@ -101,8 +98,8 @@ export class ComposeModalComponent implements OnInit {
         text: 'There was an error sending your email. Please try again.',
         confirmButtonText: 'OK',
       });
-  
+
       return 'not classified';
     }
-  }  
+  }
 }

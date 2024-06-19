@@ -28,15 +28,15 @@ export class EmailListComponent {
       );
     });
 
-    this.emailContent.map((email) => {
-      const dateTime = new Date(email.sendDate);
-      const date = dateTime.toLocaleDateString();
-      const time = dateTime.toLocaleTimeString().slice(0,4);
-      const dateDifference = new Date().getDay() - dateTime.getDay();
+    // this.emailContent.map((email) => {
+    //   const dateTime = new Date(email.sendDate);
+    //   const date = dateTime.toLocaleDateString();
+    //   const time = dateTime.toLocaleTimeString().slice(0,4);
+    //   const dateDifference = new Date().getDay() - dateTime.getDay();
 
-      email.sendDate =
-        dateDifference === 1 ? `yesterday ${time}` : `${date} ${time}`;
-    });
+    //   email.sendDate =
+    //     dateDifference === 1 ? `yesterday ${time}` : `${date} ${time}`;
+    // });
   }
 
   fetchEmails(): Observable<any> {
