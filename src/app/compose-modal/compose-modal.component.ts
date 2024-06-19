@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { EmailsService } from '../emails.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-compose-modal',
@@ -69,11 +70,31 @@ export class ComposeModalComponent implements OnInit {
   }
 
   private async isSpamEmail(emailBody: string): Promise<string> {
-    const response = await this.http
-      .post<any>('https://spam-email-detection-1.onrender.com/predict', {
-        email: emailBody,
-      })
-      .toPromise();
-    return response?.prediction || 'not classified';
-  }
+    try {
+      const response = await this.http
+        .post<any>('https://spam-email-detection-1.onrender.com/predict', {
+          email: emailBody,
+        })
+        .toPromise();
+  
+      const prediction = response?.prediction || 'not classified';
+      Swal.fire({
+        icon: 'success',
+        title: 'Email Sent Successfully',
+        text: 'Your email was sent and classified successfully.',
+        confirmButtonText: 'OK',
+      });
+  
+      return prediction;
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Email Send Failed',
+        text: 'There was an error sending your email. Please try again.',
+        confirmButtonText: 'OK',
+      });
+  
+      return 'not classified';
+    }
+  }  
 }
