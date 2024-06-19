@@ -4,11 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { EmailsService } from '../emails.service';
-<<<<<<< HEAD
 import Swal from 'sweetalert2';
-=======
 import { AuthService } from '../auth.service';
->>>>>>> 98fc1ef13ffdcfd63ae82abaea9a6bd554bc3313
 
 @Component({
   selector: 'app-compose-modal',
