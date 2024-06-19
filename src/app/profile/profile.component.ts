@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,13 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent {
   isClicked: boolean = false;
-  constructor(private router: Router) {}
+  userName: string | null = '';
+
+  constructor(private router: Router, private auth: AuthService) {}
+
+  ngOnInit() {
+    this.userName = this.auth.getLoginUserId();
+  }
 
   handleClick() {
     this.isClicked = !this.isClicked;

@@ -1,10 +1,16 @@
 <div class="profile-container">
   <button (click)="handleClick()">
-    <p><span>R</span><span>p</span></p>
+    <p>{{ userName?.slice(0, 1) }}</p>
   </button>
   <ul *ngIf="isClicked" class="dropdown">
-    <li>Name</li>
     <li>
+      <img src="../../assets/email.png" alt="" />
+      <span>
+        {{ userName }}
+      </span>
+    </li>
+    <li>
+      <img src="../../assets/logout.png" alt="" />
       <a (click)="handleLogout()"> Logout </a>
     </li>
   </ul>

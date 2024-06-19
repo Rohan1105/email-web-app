@@ -23,8 +23,12 @@ export class EmailsService {
     return this._isComposeBtnClicked.value;
   }
 
-  saveEmails(emails: any) {
+  saveEmails(emails: Emails[]) {
     localStorage.setItem('emails', JSON.stringify(emails));
+  }
+
+  getEmails(): any {
+    return localStorage.getItem('emails');
   }
 
   setCurrentEmail(email: Emails): void {
